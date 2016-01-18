@@ -1,0 +1,26 @@
+{
+  "__comment": "Built by hand based on a recent install Jan 2016 - JM",
+  "builtins": [
+    "ant",
+    "antisamy-markup-formatter",
+    "credentials",
+    "cvs",
+    "external-monitor-job",
+    "javadoc",
+    "junit",
+    "ldap",
+    "mailer",
+    "mapdb-api",
+    "matrix-auth",
+    "matrix-project",
+    "maven-plugin",
+    "pam-auth",
+    "scm-api",
+    "script-security",
+    "ssh-credentials",
+    "ssh-slaves",
+    "subversion",
+    "translation",
+    "windows-slaves"
+  ]
+}

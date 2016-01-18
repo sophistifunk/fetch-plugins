@@ -1,3 +1,5 @@
+"use strict";
+
 var Promise = require("bluebird");
 var request = require("request-promise");
 var fs = Promise.promisifyAll(require("fs"));
@@ -35,7 +37,7 @@ console.log("Getting plugin metadata from jenkins-ci.org");
 if (!String.prototype.startsWith) throw new Error("Need String.prototype.startsWith, suggest Node 4+");
 
 get(updateUrl)
-    .then(function (result) {
+    .then(result => {
         if (!result.startsWith(prefix) || !result.endsWith(suffix)) {
             throw new Error("Unexpected result format :(");
         }
@@ -43,25 +45,24 @@ get(updateUrl)
         return result;
     })
     .then(parseJSON)
-    .then(function (obj) {
+    .then(obj => {
         console.log("Top-level object has", Object.keys(obj));
         obj.__comment = "Fetched from " + updateUrl + " on " + new Date();
         return JSON.stringify(obj, null, 4);
     })
-    .then(function (niceJSON) {
+    .then(niceJSON => {
         return fs.writeFile(ofileUpdates, niceJSON, "utf8");
     })
-    .then(function () {
+    .then(() => {
         console.log("Wrote", ofileUpdates);
         return get(usageUrl);
     })
     .then(parseJSON)
-    .then(function (usageData) {
+    .then(usageData => {
         return fs.writeFile(ofileUsage, JSON.stringify(usageData, null, 4), "utf8");
     })
-    .then(function () {
+    .then(() => {
         console.log("Wrote", ofileUsage);
-    })
-;
+    });
 
 
