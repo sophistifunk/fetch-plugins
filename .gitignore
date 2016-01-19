@@ -3,3 +3,5 @@ node_modules/
 *.iml
 update-center-response.json
 usage-stats-response.json
+sorted-amended-plugins.json
+sorted-install-counts.csv

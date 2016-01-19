@@ -51,7 +51,7 @@ get(updateUrl)
         return JSON.stringify(obj, null, 4);
     })
     .then(niceJSON => {
-        return fs.writeFile(ofileUpdates, niceJSON, "utf8");
+        return fs.writeFileAsync(ofileUpdates, niceJSON, "utf8");
     })
     .then(() => {
         console.log("Wrote", ofileUpdates);
@@ -59,7 +59,8 @@ get(updateUrl)
     })
     .then(parseJSON)
     .then(usageData => {
-        return fs.writeFile(ofileUsage, JSON.stringify(usageData, null, 4), "utf8");
+        usageData.__comment = "Fetched from " + usageUrl + " on " + new Date();
+        return fs.writeFileAsync(ofileUsage, JSON.stringify(usageData, null, 4), "utf8");
     })
     .then(() => {
         console.log("Wrote", ofileUsage);
