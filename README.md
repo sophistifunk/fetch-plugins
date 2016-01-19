@@ -15,4 +15,10 @@ tested in any meaningful way.
     nvm use 5 # Switch nodes if req'd
     npm install # fetch dependencies
     node get-metadata.js # Download details and install stats from jenkins-ci.org
-    node sort-metadata.js # Combines the info and spits our a sorted JSON and minimal CSV
+    node sort-metadata.js # Combines the info and spits out a sorted JSON and minimal CSV
+
+## TODO
+
+- [ ] Add a script to download the top *n* plugins by installed base
+- [ ] Add a script to explode the downloaded jars, look for .jelly files and write out a JSON and/or HTML index
+- [ ] World Peace
