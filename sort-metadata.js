@@ -1,39 +1,24 @@
 "use strict";
 
 var Promise = require("bluebird");
-var fs = Promise.promisifyAll(require("fs"));
 var _ = require("lodash");
+var helpers = require("./helpers.js");
 
 //---[ Config ]---------------------------------------------------------------------------------------------------------
 
-var updatesFile = "update-center-response.json";
-var usageFile = "usage-stats-response.json";
-var builtinsFile = "builtins.json";
+const updatesFile = "update-center-response.json";
+const usageFile = "usage-stats-response.json";
+const builtinsFile = "builtins.json";
 
-var oFileJSON = "sorted-amended-plugins.json";
-var oFileCSV = "sorted-install-counts.csv";
+const oFileJSON = "sorted-amended-plugins.json";
+const oFileCSV = "sorted-install-counts.csv";
 
 //---[ Helpers ]--------------------------------------------------------------------------------------------------------
 
-// TODO: Put all the helpers in one file to require()
-
-function readFile(name) {
-    console.log(name, "reading...");
-    return fs.readFileAsync(name, "utf8").then(x => {
-        console.log(name, "...done!", x.length, "chars.");
-        return x;
-    });
-}
-
-function writeFile(name, text) {
-    console.log(name, "writing...");
-    return fs.writeFileAsync(name, text, "utf8")
-        .then(() => {
-            console.log(name, "...done!");
-        })
-}
-
-var parseJSON = JSON.parse.bind(JSON);
+// Dreaming of ES6 import syntax
+const readFile = helpers.readFile;
+const writeFile = helpers.writeFile;
+const parseJSON = helpers.parseJSON;
 
 //---[ Main ]-----------------------------------------------------------------------------------------------------------
 
@@ -63,7 +48,7 @@ Promise.all([readFile(updatesFile), readFile(usageFile), readFile(builtinsFile)]
         plugins = _.sortBy(plugins, "installCount").reverse();
 
         // Build up simple CSV file now the plugins have been sorted
-        csvRows.concat(plugins.map(plugin => {
+        csvRows = csvRows.concat(plugins.map(plugin => {
             return [plugin.name, plugin.installCount, plugin.isBundled].map(x=>'"' + x + '"').join(",");
         }));
 

@@ -3,23 +3,22 @@
 var Promise = require("bluebird");
 var request = require("request-promise");
 var fs = Promise.promisifyAll(require("fs"));
+var helpers = require("./helpers.js");
 
 //---[ Config ]---------------------------------------------------------------------------------------------------------
 
-var updateUrl = "https://updates.jenkins-ci.org/current/update-center.json"; // Not real JSON
-var prefix = "updateCenter.post(\n";
-var suffix = "\n);";
+const updateUrl = "https://updates.jenkins-ci.org/current/update-center.json"; // Not real JSON
+const prefix = "updateCenter.post(\n";
+const suffix = "\n);";
 
-var ofileUpdates = "update-center-response.json";
+const ofileUpdates = "update-center-response.json";
 
-// --
-
-var usageUrl = "http://stats.jenkins-ci.org/plugin-installation-trend/latestNumbers.json";
-var ofileUsage = "usage-stats-response.json";
+const usageUrl = "http://stats.jenkins-ci.org/plugin-installation-trend/latestNumbers.json";
+const ofileUsage = "usage-stats-response.json";
 
 //---[ Helpers ]--------------------------------------------------------------------------------------------------------
 
-var parseJSON = JSON.parse.bind(JSON);
+const parseJSON = helpers.parseJSON;
 
 function get(url) {
     console.log(url, "loading...");
